@@ -1,6 +1,7 @@
 package Tools;
 
 import java.io.*;
+import java.util.Scanner;
 
 public class Person {
     String fitstName, lastName,email;
@@ -80,6 +81,26 @@ public class Person {
                 ioe.printStackTrace();
                 System.exit(1);
             }
+        }
+        return result;
+    }
+    public static Person readFromStdio() {
+        System.out.println("Setting new Person");
+        Person result = new Person();
+        try {
+            Scanner userInput = new Scanner(System.in);
+            System.out.print("Id:");
+            result.setID(Integer.parseInt(userInput.next()));
+            System.out.print("First Name:");
+            result.setFitstName(userInput.next());
+            System.out.print("Last Name:");
+            result.setLastName(userInput.next());
+            System.out.print("email:");
+            result.setEmail(userInput.next());
+            userInput.close();
+        } catch (IllegalArgumentException pe) {
+            pe.printStackTrace();
+            System.exit(1);
         }
         return result;
     }

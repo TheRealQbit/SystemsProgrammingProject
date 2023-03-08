@@ -1,6 +1,8 @@
 package Tools;
 
 
+import java.io.*;
+
 public class StockableProduct extends Product{
     int numUnits, productID;
     public StockableProduct(){
@@ -40,5 +42,34 @@ public class StockableProduct extends Product{
     }
     public String toString(){
         return this.getName() + " " + this.getMeassurementUnit() + " " + this.getCategory() + " " + this.isCountable() + " " + this.getNumUnits() + " " + this.getProductID();
+    }
+    public void print(){
+        System.out.println(this);
+    }
+    public static StockableProduct readFromFile(String file) {
+        StockableProduct product = new StockableProduct();
+        BufferedReader in = null;
+        String line = null;
+        if(file != null){
+            try{
+                in = new BufferedReader(new FileReader(file));
+                line = in.readLine();
+                String[] data = line.split(" ");
+                product.set(data);
+                in.close();
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+                System.exit(1);
+            }
+            finally {
+                try {
+                    if (in != null) in.close();
+                } catch (IOException e) {
+                    System.out.println(e.getMessage());
+                    System.exit(1);
+                }
+            }
+        }
+        return product;
     }
 }

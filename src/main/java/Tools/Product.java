@@ -1,5 +1,7 @@
 package Tools;
 
+import java.io.*;
+
 public class Product {
     String name, meassurementUnit;
     char category;
@@ -61,6 +63,34 @@ public class Product {
     }
     public String toString(){
         return "Name: " + this.getName() + " | Meassurement Unit: " + this.getMeassurementUnit() + " | Category: " + this.getCategory() + " | Is Countable: " + this.isCountable();
+    }
+    public void print(){
+        System.out.println(this);
+    }
+    public static Product readFromFile(String file) {
+        Product product = new Product();
+        BufferedReader in = null;
+        String line = null;
+        if(file != null){
+            try{
+                in = new BufferedReader(new FileReader(file));
+                while((line = in.readLine()) != null){
+                    String[] data = line.split(" ");
+                    product.set(data);
+                }
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+                System.exit(1);
+            } finally {
+                try {
+                    in.close();
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                    System.exit(1);
+                }
+            }
+        }
+        return product;
     }
 }
 
